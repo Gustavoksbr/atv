@@ -3,9 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>atv1</title>
+    <title>Array</title>
 </head>
 <body>
-    
+    <h1>Arrays</h1>
+
+    <form onsubmit="adicionar()">
+      <label for="valor">Insira um texto:</label>
+      <input type="text" id="valor" required>
+      <button type="submit">Adicionar</button>
+  </form>
+
+      <h3>Lista dos elementos em ordem alfabética</h3>
+<ol id="listaF"></ol>
+
+      <script>
+        var lista= [];
+
+        function adicionar(){  
+            event.preventDefault(); // fiz isso pra impedir recarregar a página
+            Valor = String(document.getElementById("valor").value);   
+            lista.push(Valor);
+            lista = lista.sort();
+            let listaF = document.getElementById("listaF");
+            listaF.innerHTML = "";
+
+            for(let valor of lista) {
+                let itemLista = document.createElement("li");
+                itemLista.textContent = valor;
+                listaF.appendChild(itemLista);
+            }
+        }
+    </script>
 </body>
 </html>
