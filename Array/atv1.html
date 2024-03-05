@@ -9,7 +9,7 @@
     <h1>Arrays</h1>
 
     <form onsubmit="adicionar()">
-      <label for="valor">AInsira um texto:</label>
+      <label for="valor">BInsira um texto:</label>
       <input type="text" id="valor" required>
       <button type="submit">Adicionar</button>
   </form>
@@ -33,7 +33,7 @@
                 itemLista.textContent = valor;
                 listaF.appendChild(itemLista);
             }
-            document.getElementById("valor") = "";
+            document.getElementById("valor").value = "";
         }
     </script>
 </body>
