@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atividade1</title>
+</head>
+<body>
+    <script>
+        let algo = prompt("Digite algo");
+        if(confirm("Deseja verificar o tipo de dado informado?"))
+        {
+            if(!isNaN(algo))
+            {
+                algo = Number(algo);
+            }
+            else if (/[a-zA-Z]/.test(algo))
+            {
+                algo = String(algo);
+            }
+            else
+            {
+                algo = undefined;
+            }
+            alert("O tipo de dado é: "+typeof(algo));
+    }
+        else{
+            document.write("Obrigado por visitar esta página");
+        }
+    </script>
+</body>
+</html>
