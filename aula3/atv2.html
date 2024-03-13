@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula3atv2</title>
+</head>
+<body>
+    <p id="texto"></p>
+    <script>
+        function mudar() {
+            let data = new Date();
+            let hora = data.getHours();
+            let minuto = data.getMinutes();
+            let segundo = data.getSeconds();
+
+            document.getElementById("texto").innerHTML = hora + ":" + minuto + ":" + segundo;
+        }
+
+        function passartempo() {
+            setTimeout(() => {mudar();passartempo();}, 1000); 
+        }
+        mudar();
+        passartempo(); 
+    </script>
+</body>
+</html>
