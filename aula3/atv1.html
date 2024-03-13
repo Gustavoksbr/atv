@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula3atv1</title>
+</head>
+<body>
+    <script>
+        listaSemana = ['Domingo','Segunda-Feira','Terça-feira','Quarta-feira','Quinta-feira','Sexta-feira','Sábado'];
+        listaMes = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+
+        data = new Date();
+        DiaSemana = data.getDay();
+        DiaMes = data.getDate();
+        Mes = data.getMonth();
+        Ano = data.getYear();
+
+        DiaSemana2 = listaSemana[DiaSemana]
+        Mes2 = listaMes[Mes];
+        Ano2 = Number(Ano) + 1900; 
+        
+        document.write("Hoje é ",DiaSemana2,", ",DiaMes," de ",Mes2," de ",Ano2);
+
+    </script>
+</body>
+</html>
