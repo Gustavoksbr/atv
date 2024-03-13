@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula3atv3</title>
+</head>
+<body>
+    <script>
+        let frase = prompt("Digite uma frase (ignore os espaços, faça todas as palavras juntas)");
+        fraseinvertida = "";        
+        
+        console.log(frase.length);
+        for(let i = frase.length - 1; i >= 0; i--)
+        {
+            caractere = frase.charAt(i);
+            fraseinvertida += caractere;
+        }
+        console.log(fraseinvertida);
+        if(frase == fraseinvertida)
+        {
+            document.write("Esta frase é palíndromo");
+        }
+        else
+        {
+            document.write("Não é palíndromo");
+        }
+    </script> 
+</body>
+</html>
+
