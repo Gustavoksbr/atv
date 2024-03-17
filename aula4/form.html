@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulário de Cadastro:</h1>
+    <form onsubmit="Enviar()">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" required>
+        <label for="email">Email:</label>
+        <input type="text" id="email" required>
+        <label for="datanasc">Data Nascimento:</label>
+        <input type="date" id="datanasc" required>
+        <label for="fixo">Telefone Fixo:</label>
+        <input type="number" id="fixo">
+        <label for="telcel">Telefone Celular:</label>
+        <input type="number" id="telcel">
+        <label for="matricula">Matrícula:</label>
+        <input type="text" id="matricula" required>
+        <input type="radio" id="professor" name="pessoa" onclick="formprofessor()" required>
+        <label for="professor">Professor</label>
+        <input type="radio" id="aluno" name="pessoa" onclick="formaluno()">
+        <label for="aluno">Aluno</label>
+        <div id="div"></div>
+        <input type="submit">
+        </form>
+
+        <script>
+function pessoa(){
+                var nome;
+                var email;
+                var datanasc;
+                var fixo;
+                var telcel;
+                var matricula;
+                this.setnome = function(nome){
+                    this.nome = nome;
+                }
+                this.getnome = function(){
+                    return this.nome;
+                }
+                this.setemail = function(email){
+                    this.email = email;
+                }
+                this.getemail = function(){
+                    return this.email;
+                }
+                this.setdatanasc = function(datanasc){
+                    this.datanasc = datanasc;
+                }
+                this.getdatanasc = function(){
+                    return this.datanasc;
+                }
+                this.setfixo = function(fixo){
+                    this.fixo = fixo;
+                }
+                this.getfixo = function(){
+                    return this.fixo;
+                }
+                this.settelcel = function(telcel){
+                    this.telcel = telcel;
+                }
+                this.gettelcel = function(){
+                    return this.telcel;
+                }
+                this.setmatricula = function(matricula){
+                    this.matricula = matricula;
+                }
+                this.getmatricula = function(){
+                    return this.matricula;
+                }
+            }
+
+            function professor(){
+            pessoa.call(this);
+            var lattes;
+            var area;
+            this.setarea = function(area){
+                this.area = area;
+            }
+            this.getarea = function(){
+                return this.area;
+            }
+            this.setlattes = function(lattes){
+                this.lattes = lattes;
+            }
+            this.getlattes = function(){
+                return this.lattes;
+            }
+            }
+
+            function aluno(){
+            pessoa.call(this);
+            var curso;
+            this.setcurso = function(curso){
+                this.curso = curso;
+            }
+            this.getcurso = function(){
+                return this.curso;
+            }
+            }
+
+            function formprofessor()
+            {   
+                var div = document.getElementById("div");
+                if(document.getElementById("area") == null)
+                {
+                //removendo
+                if(document.getElementById("curso") !=null)
+                {
+                document.getElementById("curso").remove();
+                document.getElementById("cursolabel").remove();
+                }
+                //area
+                var e = document.createElement("Label");
+                var t = document.createTextNode("Área");
+                var inp = document.createElement("input");
+                e.setAttribute("id","arealabel");
+                e.appendChild(t);
+                inp.setAttribute("type","text");
+                inp.setAttribute("id","area");
+                inp.setAttribute('required', 'required');
+                div.appendChild(e);
+                div.appendChild(inp);
+                //lattes
+                var e2 = document.createElement("Label");
+                var t2 = document.createTextNode("Lattes");
+                var inp2 = document.createElement("input");
+                e2.setAttribute("id","latteslabel");
+                e2.appendChild(t2);
+                inp2.setAttribute("type","text");
+                inp2.setAttribute("id","lattes");
+                inp2.setAttribute('required', 'required');
+                div.appendChild(e2);
+                div.appendChild(inp2);
+                }
+            }
+
+            function formaluno()
+            {   
+                var div = document.getElementById("div");
+                if(document.getElementById("curso") == null)
+                {
+                //removendo
+                if(document.getElementById("area") != null)
+                {
+                document.getElementById("area").remove();
+                document.getElementById("arealabel").remove();
+                document.getElementById("lattes").remove();
+                document.getElementById("latteslabel").remove();
+                }
+                var e = document.createElement("label");
+                var t = document.createTextNode("Curso");
+                var inp = document.createElement("input");
+                e.setAttribute("id","cursolabel");
+                e.appendChild(t);
+                inp.setAttribute("type","text");
+                inp.setAttribute("id","curso");
+                inp.setAttribute("required", "required");
+                div.appendChild(e);
+                div.appendChild(inp);
+                }
+            }
+
+
+
+            function Enviar()
+            {
+                event.preventDefault(); // fiz isso pra impedir recarregar a página
+                if(document.getElementById("area") !=null)
+                {
+                    var p = new professor();
+                    p.setnome(document.getElementById("nome").value);
+                    p.setemail(document.getElementById("email").value);
+                    p.setdatanasc(document.getElementById("datanasc").value);
+                    p.setfixo(document.getElementById("fixo").value);
+                    p.settelcel(document.getElementById("telcel").value);
+                    p.setmatricula(document.getElementById("matricula").value);
+                    p.setarea(document.getElementById("area").value);
+                    p.setlattes(document.getElementById("lattes").value);
+                    var e = document.createElement("p");
+                    e.setAttribute("id","textopro");
+                    var t = document.createTextNode("Nome:" + p.getnome() + "; Email:" + p.getemail() + "; Data de Nascimento:" + p.getdatanasc() + "; Telefone Fixo:" + p.getfixo() + "; Celular:" + p.gettelcel() + "; Matrícula:" + p.getmatricula() + "; Área:" + p.getarea() + "; Lattes:" + p.getlattes());
+                    e.appendChild(t);
+                    document.body.appendChild(e);
+
+                }
+                else if(document.getElementById("curso") !=null)
+                {
+                    
+                    var p = new aluno();
+                    p.setnome(document.getElementById("nome").value);
+                    p.setemail(document.getElementById("email").value);
+                    p.setdatanasc(document.getElementById("datanasc").value);
+                    p.setfixo(document.getElementById("fixo").value);
+                    p.settelcel(document.getElementById("telcel").value);
+                    p.setmatricula(document.getElementById("matricula").value);
+                    p.setcurso(document.getElementById("curso").value);
+                    var e = document.createElement("p");
+                    e.setAttribute("id","textoaluno");
+                    var t = document.createTextNode("Nome:" + p.getnome() + "; Email:" + p.getemail() + "; Data de Nascimento:" + p.getdatanasc() + "; Telefone Fixo:" + p.getfixo() + "; Celular:" + p.gettelcel() + "; Matrícula:" + p.getmatricula() + "; Curso: " + p.getcurso());
+                    e.appendChild(t);
+                    document.body.appendChild(e);
+                }
+            }
+        </script>
+        
+    </form>
+</body>
+</html>
