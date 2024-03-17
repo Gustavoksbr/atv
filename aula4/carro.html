@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Formulário de Cadastro de carros:</h1>
+    <form onsubmit="Enviar()">
+        <label for="marca">Marca:</label>
+        <input type="text" id="marca" >
+        <label for="modelo">Modelo:</label>
+        <input type="text" id="modelo" >
+        <label for="ano">Ano de fabricação:</label>
+        <input type="number" id="ano" required>
+        <label for="cor">Cor:</label>
+        <input type="text" id="cor">
+        <label for="km">Kilometragem (em km/ano):</label>
+        <input type="number" id="km" required>
+        <label for="valor_fipe">Valor fipe:</label>
+        <input type="text" id="valor_fipe" required>
+        <input type="submit">
+        </form>
+        <script>
+
+function carro(){
+                //variaveis
+                let marca;
+                let email;
+                let ano;
+                let cor;
+                let km;
+                let valor_fipe;
+                //get e sets
+                this.setmarca = function(marca){
+                    this.marca = marca;
+                }
+                this.getmarca = function(){
+                    return this.marca;
+                }
+                this.setmodelo = function(modelo){
+                    this.modelo = modelo;
+                }
+                this.getmodelo = function(){
+                    return this.modelo;
+                }
+                this.setano = function(ano){
+                    this.ano = ano;
+                }
+                this.getano = function(){
+                    return this.ano;
+                }
+                this.setcor = function(cor){
+                    this.cor = cor;
+                }
+                this.getcor = function(){
+                    return this.cor;
+                }
+                this.setkm = function(km){
+                    this.km = km;
+                }
+                this.getkm = function(){
+                    return this.km;
+                }
+                this.setvalor_fipe = function(valor_fipe){
+                    this.valor_fipe = valor_fipe;
+                }
+                this.getvalor_fipe = function(){
+                    return this.valor_fipe;
+                }
+                //metodos
+                this.anosUtilizacao = function()
+                {
+                    let anos= 2024 - this.ano;
+                    return anos;
+                }
+                this.valorMercado = function()
+                {
+                    let valormercado;
+                    if(this.km<=30000)
+                    {
+                        valormercado = this.valor_fipe * 1.1;
+                    }
+                    else if(this.km>=30000 && this.km<=50000)
+                    {
+                        valormercado = this.valor_fipe;
+                    }
+                    else
+                    {
+                        valormercado = this.valor_fipe * 0.9;
+                    }
+                    return valormercado;
+                }
+
+
+
+            }
+            function Enviar()
+            {  
+                console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
+                event.preventDefault(); // fiz isso pra impedir recarregar a página
+                    var p = new carro();
+                    p.setmarca(document.getElementById("marca").value);
+                    p.setmodelo(document.getElementById("modelo").value);
+                    p.setano(document.getElementById("ano").value);
+                    p.setcor(document.getElementById("cor").value);
+                    p.setkm(document.getElementById("km").value);
+                    p.setvalor_fipe(document.getElementById("valor_fipe").value);
+                    var e = document.createElement("p");
+                    e.setAttribute("id","textocarro");
+                    var t = document.createTextNode("Marca:" + p.getmarca() + "; Modelo:" + p.getmodelo() + "; Ano de fabricação:" + p.getano() + "; Cor:" + p.getcor() + "; Kilometragem:" + p.getkm() + "; Valor fipe:" + p.getvalor_fipe()+" Anos de utilização:"+p.anosUtilizacao()+"Valor de mercado:"+p.valorMercado());
+                    e.appendChild(t);
+                    document.body.appendChild(e);
+            }
+        </script>
+        
+    </form>
+</body>
+</html>
