@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="div"></div>
+    <script>
+        function addText(id,lugarhtml,texto)
+        {
+            let lugar = document.getElementById(lugarhtml);
+            let p = document.createElement("p");
+            p.setAttribute("id",id);
+            let t = document.createTextNode(texto);
+            p.appendChild(t);
+            lugar.appendChild(p);
+        }
+
+        function addNumero(id,lugarhtml)
+        {
+            let lugar = document.getElementById(lugarhtml);
+            let p = document.createElement("p");
+            p.setAttribute("id",id);
+            let t = document.createTextNode(contador_total);
+            p.appendChild(t);
+            lugar.appendChild(p);
+
+        }
+
+        function addImg(id,lugarhtml,lugarpasta,funcao)
+        {
+            let lugar = document.getElementById(lugarhtml);
+            let img = document.createElement("img");
+            img.setAttribute("src",lugarpasta);
+            img.setAttribute("id",id);
+            img.setAttribute("width",50);
+            img.setAttribute("height",50);
+            lugar.appendChild(img);
+            //width="320" height="205"
+
+        }
+
+        function aumentar(g)
+        {
+            numero_total = document.getElementById("t_n");
+            contador_total ++;
+            numero_total.innerHTML = contador_total;
+            genero = document.getElementById(g);
+            if(g == "h_n")
+            {
+            contador_homem ++;
+            genero.innerHTML = contador_homem;
+            }
+            else if(g == "m_n")
+            {
+            contador_mulher ++;
+            genero.innerHTML = contador_mulher;
+            }
+
+        }
+        function diminuir(g)
+        {
+            numero_total = document.getElementById("t_n");
+            contador_total --;
+            numero_total.innerHTML = contador_total;
+            genero = document.getElementById(g);
+            if(g == "h_n")
+            {
+            contador_homem --;
+            genero.innerHTML = contador_homem;
+            }
+            else if(g == "m_n")
+            {
+            contador_mulher --;
+            genero.innerHTML = contador_mulher;
+            }
+        }
+
+        function resetar()
+        {
+            contador_total = 0;
+            contador_homem = 0;
+            contador_mulher = 0;
+            document.getElementById("t_n").innerHTML=contador_total;
+            document.getElementById("h_n").innerHTML=contador_homem;
+            document.getElementById("m_n").innerHTML=contador_mulher;
+        }
+
+        function addDiv(id,lugarhtml)
+        {
+            let divs = document.createElement("div");
+            divs.setAttribute("id",id);
+            let lugar = document.getElementById(lugarhtml);
+            lugar.appendChild(divs);
+        }
+
+        let contador_total = 0;
+        let contador_homem = 0;
+        let contador_mulher = 0;
+        //total
+        addDiv("div_total","div");
+        addText("t_p","div_total","Total");
+        addNumero("t_n","div_total");
+        addImg("resetar","div_total","img/resetar.png");
+        document.getElementById("resetar").addEventListener("click",resetar);
+        //homem
+        addDiv("div_homem","div");
+        addImg("h_imagem","div_homem","img/homem.png");
+        addText("h_p","div_homem","Homem");
+        addNumero("h_n","div_homem");
+        addImg("h_mais","div_homem","img/mais.png");
+        addImg("h_menos","div_homem","img/menos.png");
+        document.getElementById("h_mais").addEventListener("click",function(){aumentar("h_n")});
+        document.getElementById("h_menos").addEventListener("click",function(){diminuir("h_n")});
+        //mulher
+        addDiv("div_mulher","div");
+        addImg("m_imagem","div_mulher","img/mulher.png");
+        addText("m_p","div_mulher","Mulher");
+        addNumero("m_n","div_mulher");
+        addImg("m_mais","div_mulher","img/mais.png");
+        addImg("m_menos","div_mulher","img/menos.png");
+        document.getElementById("m_mais").addEventListener("click",function(){aumentar("m_n")});
+        document.getElementById("m_menos").addEventListener("click",function(){diminuir("m_n")});
+    </script>
+</body>
+</html>
