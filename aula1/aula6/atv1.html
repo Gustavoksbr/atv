@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body id="body">
+    <div id="container"></div>
+    <script>
+        //HTML
+        function addDiv(id,lugarhtml)
+        {
+            let divs = document.createElement("div");
+            divs.setAttribute("id",id);
+            let lugar = document.getElementById(lugarhtml);
+            lugar.appendChild(divs);
+        }
+
+        function addText(id,lugarhtml,texto,tamanho,cor)
+        {
+            let lugar = document.getElementById(lugarhtml);
+            let p = document.createElement("p");
+            p.setAttribute("id",id);
+            let t = document.createTextNode(texto);
+            p.appendChild(t);
+            lugar.appendChild(p);
+            p.style.color = cor;
+            p.style.fontSize = tamanho+"px";
+        }
+
+
+        //apenas CSS
+        var htmlElement = document.documentElement;
+        htmlElement.style.height = "100%"; 
+        
+        function cssGeral(id,backG,borderR,altura,largura,margem,padd){
+            let elemento = document.getElementById(id);
+            elemento.style.backgroundColor = backG;
+            elemento.style.borderRadius = borderR+"%";
+            elemento.style.height = altura+"%";
+            elemento.style.width = largura+"%";
+            elemento.style.margin = margem+"%";
+            elemento.style.padding = padd+"%";
+        }
+
+        function cssPx(id,altura,largura)
+        {
+            let elemento = document.getElementById(id);
+            elemento.style.height = altura+"px";
+            elemento.style.width = largura+"px";
+        }
+
+        function cssFlexbox(id,flexD,justifyC,alignI){
+
+            elemento = document.getElementById(id);
+            elemento.style.display = "flex";
+            elemento.style.flexDirection = flexD;
+            elemento.style.justifyContent = justifyC;
+            elemento.style.alignItems = alignI;
+        }
+        //eventos
+        function addEvento(id,funcao)
+        {
+            document.getElementById(id).addEventListener("click",funcao);
+        }
+
+       
+
+
+        //instanciando...
+        //geral
+        let contador_total = 0;
+        let contador_homem = 0;
+        let contador_mulher = 0;
+        
+        //body
+        cssGeral("body","","",100,100);
+        cssFlexbox("body","column","center","center");
+        //container
+        cssGeral("container","","",100,50);
+        cssFlexbox("container","column","center","center");
+        //quadradão preto
+        addDiv("div","container");
+        cssFlexbox("div","column","flex-start","");
+        cssGeral("div","black","");
+        cssPx("div",750,500)
+
+        //resultado
+        addDiv("resultado","div");
+        addText("t_resultado","resultado","0",100,"white");
+        cssFlexbox("resultado","row","flex-end","center");
+        cssGeral("resultado","","",20)
+        //addText(id,lugarhtml,texto,tamanho,cor)
+        //cssGeral(id,backG,borderR,altura,largura,margem,padd)
+
+        //1 linha
+
+        
+        let lista1 =["AC","+/-","%","÷"];
+        let lista2 =["7","8","9","×"];
+        let lista3 =["4","5","6","-"];
+        let lista4 =["1","2","3","+"];
+        let lista5 =["0",",","="];
+        let lista_cinza = ["AC","+/-","%"];
+        let lista_laranja = ["÷","×","-","+","="];
+        let lista_numero = ["1","2","3","4","5","6","7","8","9","0"];
+        let lista_pai =[lista1,lista2,lista3,lista4,lista5];
+
+
+        //exclusivo para a programacao da calculadora
+        let lista_calculadora = [0];
+        let lista_sinais = ["÷","×","-","+"];
+        let lista_outros = [",","%"];
+
+        
+        function clicou(id,t_id)
+        {
+            let botao = document.getElementById(id);
+            let p_botao = document.getElementById(t_id);
+            let texto_botao = document.getElementById(t_id).textContent;
+            let resultado = document.getElementById("t_resultado");
+            let texto_resultado = resultado.textContent;
+            let texto_atualizado = texto_resultado;
+            let tamanho_lista = lista_calculadora.length;
+            let ultimo_da_lista = lista_calculadora[tamanho_lista -1];
+
+
+            //numeros
+            if(lista_numero.includes(texto_botao))
+            {
+
+                if(texto_resultado == "0")
+                {
+                    lista_calculadora.pop();
+                }
+                else if(ultimo_da_lista == "%")
+                {
+                    lista_calculadora.push("×");
+                }
+                lista_calculadora.push(texto_botao);
+                texto_atualizado = lista_calculadora.join("");
+                resultado.innerHTML=texto_atualizado;
+                
+            }
+
+            //sinais e operacoes
+            else if(lista_sinais.includes(texto_botao))
+            {
+
+                if(lista_sinais.includes(ultimo_da_lista) || ultimo_da_lista==",")
+                {
+                    lista_calculadora.pop();
+
+                }
+                lista_calculadora.push(texto_botao);
+                texto_atualizado = lista_calculadora.join("");
+                resultado.innerHTML=texto_atualizado;
+            }
+
+            //ponto
+            else if(texto_botao == ",")
+            {
+
+                if(ultimo_da_lista != ",")
+                {
+
+                if(lista_sinais.includes(ultimo_da_lista))
+                {
+                    lista_calculadora.push("0");
+                }
+                else if(ultimo_da_lista == "%")
+                {
+                    lista_calculadora.push("×");
+                    lista_calculadora.push("0");
+                }
+
+                lista_calculadora.push(texto_botao);
+                texto_atualizado = lista_calculadora.join("");
+            }
+                resultado.innerHTML=texto_atualizado;
+                
+            }
+
+            //%
+
+            else if(texto_botao == "%")
+            {
+                if(ultimo_da_lista == "," || lista_sinais.includes(ultimo_da_lista))
+                {
+                    lista_calculadora.pop();
+                }
+                lista_calculadora.push(texto_botao);
+                texto_atualizado = lista_calculadora.join("");
+                resultado.innerHTML=texto_atualizado;
+            }
+
+            //+/-
+            else if(texto_botao == "+/-")
+                {
+                    if(ultimo_da_lista == ",")
+                {
+                    lista_calculadora.pop();
+                }
+                    else if(lista_numero.includes(ultimo_da_lista))
+                    {
+                        for(let i=ultimo_da_lista; i>0; i--)
+                        {
+                            item = lista_calculadora[i];
+                            if(lista_sinais.includes(item) || item=="%")
+                            {
+                                if(item == "+")
+                                {
+                                lista_calculadora.splice(i,1,"-");
+                                break;
+                                }
+                                else if(item == "-")
+                                {
+                                    lista_calculadora.splice(i,1,"+");
+                                    break;
+                                }
+                                else if(lista_sinais.includes(item))
+                                {
+                                    lista_calculadora.splice(i+1,0,"-");
+                                    break;
+                                }
+                            }
+
+                        }
+                        if(texto_resultado == lista_calculadora.join(""))
+                        {
+                            if(lista_calculadora[0]!="-" && lista_calculadora[0]!="+" )
+                            {
+                                lista_calculadora.splice(0,0,"-");
+                            }
+                            else if(lista_calculadora[0]=="-" )
+                            {
+                                lista_calculadora.splice(0,1,"+");
+                            }
+                            else if(lista_calculadora[0]=="+")
+                            {
+                                lista_calculadora.splice(0,1,"-");
+                            }
+                        }
+                    }
+                    texto_atualizado = lista_calculadora.join("");
+                    resultado.innerHTML=texto_atualizado;
+                }
+
+            //AC
+            else if(texto_botao == "AC")
+            {
+                lista_calculadora = ["0"];
+                texto_atualizado = lista_calculadora.join("");
+                resultado.innerHTML=texto_atualizado;
+            }
+            // =
+
+            else if(texto_botao == "=")
+            {
+                if(!lista_numero.includes(ultimo_da_lista) && ultimo_da_lista != "%")
+                {
+                    lista_calculadora.pop();
+                }
+                for(let i=0;i<=tamanho_lista;i++)
+                {
+                    let item = lista_calculadora[i];
+                    if(item == "%")
+                    {
+                        lista_calculadora.splice(i,1,"/100");
+                        console.log(lista_calculadora);
+                    }
+                    else if(item=="×")
+                    {
+                        lista_calculadora.splice(i,1,"*");
+                    }
+                    else if(item=="÷")
+                    {
+                        lista_calculadora.splice(i,1,"/");
+                    }
+                    else if(item==",")
+                    {
+                        lista_calculadora.splice(i,1,".");
+                    }
+                }
+            let texto_a_mudar = lista_calculadora.join("");
+            texto_atualizado = eval(texto_a_mudar);
+            resultado.innerHTML=texto_atualizado;
+        }
+    }
+
+    //////
+        for(let a=0;a<=4;a++)
+        {
+            let nome_linha = a+"linha";
+            let lista_a_usar = lista_pai[a];
+            addDiv(nome_linha,"div");
+            cssFlexbox(nome_linha,"row","space-around","center");
+            cssGeral(nome_linha,"","",16,100,"","");
+            
+            for(let i=0;i<=3;i++)
+            {
+                let item = lista_a_usar[i];
+                if(item!=null)
+                {
+                let nome = "botao_"+a+"_"+i;
+                addDiv(nome,nome_linha);
+                cssFlexbox(nome,"row","center","center");
+                let cor_fundo;
+                let cor_letra;
+                if(lista_cinza.includes(item)){
+                    cor_fundo = "LightGray";
+                    cor_letra ="black";
+                }
+                else if(lista_laranja.includes(item)){
+                    cor_fundo = "orange";
+                    cor_letra = "white";
+                }
+                else{
+                    cor_fundo = "gray";
+                    cor_letra = "white";
+                }
+                addText("t_"+nome,nome,item,58,cor_letra);
+                cssGeral(nome,cor_fundo,50);
+                cssPx(nome,100,100);
+                document.getElementById(nome).addEventListener("click",function(){clicou(nome,"t_"+nome)});
+            }
+            }
+          
+        }
+        //deixando o botão do 0 maior
+        botao0 = document.getElementById("botao_4_0");
+        botao0.style.width = "225px";
+        botao0.style.borderRadius = "50%";
+
+    </script>
+</body>
+</html>
