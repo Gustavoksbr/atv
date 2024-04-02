@@ -214,7 +214,7 @@
                     lista_calculadora.pop();
                 }
                 else if (!isNaN(ultimo_da_lista)) {
-                    for (let i = ultimo_da_lista; i > 0; i--) {
+                    for (let i = tamanho_lista; i > 0; i--) {
                         item = lista_calculadora[i];
                         if (lista_sinais.includes(item) || item == "%") {
                             if (item == "+") {
