@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>react</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+        function MeuElemento({agora}){
+            return(
+                <div>
+                    <h1 id='texto'>{agora}</h1>
+                </div>
+            )
+        }
+        const container = document.getElementById('root');
+        const root = ReactDOM.createRoot(container);
+        let texto = "Venha estudar na Fatec".split("");
+        let lista = [];
+        lista = texto;
+        let contador = 0;
+        let texto_antigo = "";
+
+        function tick()
+        {
+            if(contador <lista.length)
+            {
+                let letra = lista[contador];
+                contador ++;
+                let texto_novo = texto_antigo + letra;
+                texto_antigo = texto_novo;
+                root.render(<MeuElemento agora = {texto_novo} />);
+            }
+        }
+        setInterval(tick,450);
+    </script>
+</body>
+</html>
